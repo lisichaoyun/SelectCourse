@@ -1,84 +1,109 @@
 <!-- @format -->
 
 <template>
-  <el-row>
-    <!-- xs占100% sm占70% md占50% 总共24个格子-->
-    <el-col
-      :xs="{ span: 24, offset: 0 }"
-      :sm="{ span: 16, offset: 4 }"
-      :md="{ span: 8, offset: 8 }"
-    >
-      <div id="register" align="center">
-        <el-form
-          :model="ruleForm"
-          status-icon
-          :rules="rules"
-          ref="ruleForm"
-          class="demo-ruleForm"
-        >
-          <el-form-item label="账号" prop="userName">
-            <el-input
-              v-model.trim="ruleForm.userName"
-              auto-complete="on"
-            ></el-input>
-          </el-form-item>
+  <div id="bg">
+    <el-row>
+      <!-- xs占100% sm占70% md占50% 总共24个格子-->
+      <el-col
+          :xs="{ span: 24, offset: 0 }"
+          :sm="{ span: 16, offset: 4 }"
+          :md="{ span: 6, offset: 9 }"
+      >
+        <div id="register">
+          <el-form
+              :model="ruleForm"
+              status-icon
+              :rules="rules"
+              ref="ruleForm"
+              class="demo-ruleForm"
+              size="small"
+          >
+            <el-form-item prop="userName">
+              <el-input
+                  v-model.trim="ruleForm.userName"
+                  auto-complete="on"
+                  placeholder="账号"
+              ></el-input>
+            </el-form-item>
 
-          <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="ruleForm.pass"></el-input>
-          </el-form-item>
-          <el-form-item label="确认密码" prop="checkPass">
-            <el-input type="password" v-model="ruleForm.checkPass"></el-input>
-          </el-form-item>
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="ruleForm.email"></el-input>
-            <el-button
-              type="primary"
-              @click="sendEmailVertify('theEmail')"
-              v-if="timerActive"
-            >
-              发送邮箱验证码
-            </el-button>
-            <el-button v-else type="success" style="margin-top: 8px">
-              {{ timeInfo }}
-            </el-button>
-          </el-form-item>
-          <el-form-item label="邮箱验证码">
-            <el-input
-              type="number"
-              v-model="ruleForm.emailVertifyCode"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="手机号">
-            <el-input v-model="phone"></el-input>
-          </el-form-item>
-          <el-form-item label="班级">
-            <el-input v-model="Class"></el-input>
-          </el-form-item>
-          <el-form-item label="真实姓名">
-            <el-input v-model="realname"></el-input>
-          </el-form-item>
-          <el-form-item label="学号">
-            <el-input v-model="studyCode"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              type="primary"
-              @click="submitForm('ruleForm')"
-              :loading="buttonLoding"
-            >
-              提交
-            </el-button>
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-    </el-col>
-  </el-row>
+            <el-form-item prop="pass">
+              <el-input type="password" v-model="ruleForm.pass" placeholder="密码"></el-input>
+            </el-form-item>
+            <el-form-item prop="checkPass">
+              <el-input type="password" v-model="ruleForm.checkPass" placeholder="确认密码"></el-input>
+            </el-form-item>
+            <el-form-item prop="email">
+              <el-input v-model="ruleForm.email" placeholder="邮箱"></el-input>
+              <el-button
+                  type="primary"
+                  @click="sendEmailVertify('theEmail')"
+                  v-if="timerActive"
+                  size="mini"
+              >
+                发送邮箱验证码
+              </el-button>
+              <el-button v-else type="success" style="margin-top: 8px">
+                {{ timeInfo }}
+              </el-button>
+            </el-form-item>
+            <el-form-item>
+              <el-input
+                  type="tel"
+                  v-model="ruleForm.emailVertifyCode"
+                  placeholder="邮箱验证码"
+              ></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="phone" placeholder="手机号"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="Class" placeholder="班级"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="realname" placeholder="真实姓名"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input v-model="studyCode" placeholder="学号"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                  type="primary"
+                  @click="submitForm('ruleForm')"
+                  :loading="buttonLoding"
+              >
+                提交
+              </el-button>
+              <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-col>
+    </el-row>
+    <div class="pio-container left" style="z-index: 100">
+      <div class="pio-action"></div>
+      <canvas id="pio" width="250" height="250"></canvas>
+    </div>
+  </div>
 </template>
-
 <script>
+import Vue from 'vue'
+import '/public/Pio/static/l2d'
+import Paul_Pio from '/public/Pio/static/pio'
+import '/public/Pio/static/pio.css'
 export default {
   name: 'Register',
+  mounted() {
+    Vue.use(new Paul_Pio({
+      "mode": "static",
+      "hidden": false,
+      "content": {
+        "welcome": "欢迎来到保罗的小窝"
+      },
+      "night": "single.night()",
+      "model": ["http://localhost/Pio/models/pio/model.json"],
+      "tips": true
+    }))
+  },
   data() {
     let validatePass2 = (rule, value, callback) => {
       if (value === '') {
@@ -157,12 +182,11 @@ export default {
         this.rule.email.test(this.ruleForm.email)
       ) {
         this.axios
-          .get('http://localhost:8080/api/SendEmailCode', {
+          .get('http://localhost/api/SendEmailCode', {
             params: { email: this.ruleForm.email },
           })
           .then(res => {
             if (res.data.err == 0) {
-              console.log(res.data.msg)
               this.timerActive = false
               let refreshIntervalId = setInterval(() => {
                 if (this.timeInfo < 1) {
@@ -181,7 +205,7 @@ export default {
             this.$message.error(e) //这里报错客户端问题
           })
       } else {
-        this.$message.warning('表单不正确')
+        this.$message.warning('邮箱不正确')
       }
     },
     submitForm(formName) {
@@ -190,7 +214,7 @@ export default {
           this.buttonLoding = true
           this.axios
             .post(
-              'http://localhost:8080/api/register', //验证表单接口
+              'http://localhost/api/register', //验证表单接口
               {
                 username: this.ruleForm.userName,
                 password: this.ruleForm.pass,
@@ -232,5 +256,25 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>
+<style scoped>
+#register >>> .el-input__inner{
+  color: darkred;
+  background-color: rgba(255,255,255,0.5);
+  border-radius: 12vh;
+}
+#register >>> .el-input__inner::placeholder{
+color: darkred;
+}
+#bg::before{
+  z-index: -6;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("./../assets/img/acg_bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  left: 0;
+  top: 0;
+}
+</style>

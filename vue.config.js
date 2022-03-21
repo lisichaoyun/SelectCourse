@@ -1,6 +1,6 @@
 module.exports={
   publicPath: process.env.NODE_ENV === 'production'
-      ? '/production-sub-path/'
+      ? '/'
       : '/',
   pages: {
     index: {
@@ -41,7 +41,7 @@ module.exports={
     }
   },
   css: {
-    extract:true,//生成环境默认true,开发模式true不会热更新
+    // extract:true,//生成环境默认true,开发模式true不会热更新
     loaderOptions: {
       css: {
         // 这里的选项会传递给 css-loader

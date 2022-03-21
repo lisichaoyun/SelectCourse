@@ -48,6 +48,7 @@
             </el-button>
           </el-form-item>
         </el-form>
+        <router-link to="/register" style="color: darkred;font-family: 华文琥珀">还没有注册？</router-link>
       </el-col>
     </el-row>
   </div>
@@ -67,7 +68,7 @@ export default {
   methods: {
     submitForm() {
       this.axios
-        .post('http://localhost:8080/api/login', {
+        .post('http://localhost/api/login', {
           username: this.ruleForm.username,
           password: this.ruleForm.pass,
         })

@@ -5,7 +5,7 @@
     <span>Logo</span>
     <span class="tou">
       <el-image
-        src="https://oss.tool.lu/cache/202203/14/2140181jzq5uc5151ozx9f.jpg.icon.png"
+        src="http://m.imeitou.com/uploads/allimg/220321/5-220321121934.jpg"
         style="height: 100%; width: 100%; border: 1vh; border-radius: 6vh"
       ></el-image>
     </span>

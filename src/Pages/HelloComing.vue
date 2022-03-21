@@ -71,7 +71,7 @@ export default {
     }, 1000)
   },
   beforeMount() {
-    this.axios('http://localhost:8080/api/studentInfo').then(res => {
+    this.axios('http://localhost/api/studentInfo').then(res => {
       if (res.data.err == 0) {
         let msg = res.data.msg[0]
         this.$store.dispatch('setUserInfo', {

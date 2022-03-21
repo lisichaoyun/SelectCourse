@@ -116,7 +116,7 @@ export default {
       ]
     },
     confirmSelect(index, row) {
-      this.axios('http://localhost:8080/api/submitCourse', {
+      this.axios('http://localhost/api/submitCourse', {
         method: 'get',
         params: {
           course: row.course,
@@ -147,7 +147,7 @@ export default {
         this.offeted = (val - 1) * this.contentsNum
       }
       this.axios
-        .get('http://localhost:8080/api/Selectcourse', {
+        .get('http://localhost/api/Selectcourse', {
           params: { offet: this.offeted, number: this.contentsNum },
         })
         .then(res => {
@@ -184,7 +184,7 @@ export default {
   },
   beforeMount() {
     this.axios
-      .get('http://localhost:8080/api/Selectcourse', {
+      .get('http://localhost/api/Selectcourse', {
         params: { offet: 0, number: this.contentsNum },
       })
       .then(res => {
