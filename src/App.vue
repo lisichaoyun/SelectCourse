@@ -13,7 +13,7 @@ import Application from './Application'
 export default {
   name: 'App',
   mounted() {
-    Vue.use(new Application())
+    Vue.use(new Application())//使用vue.use表示全局使用此对象
   },
   created() {
     if (sessionStorage.getItem('store')) {

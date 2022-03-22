@@ -23,7 +23,7 @@
             <el-input
               v-model="ruleForm.username"
               autocomplete="on"
-              placeholder="Username"
+              placeholder="用户名"
               id="username"
               class="login-form-input"
             ></el-input>
@@ -33,7 +33,7 @@
             <el-input
               type="password"
               v-model="ruleForm.pass"
-              placeholder="Password"
+              placeholder="密码"
               class="login-form-input"
             ></el-input>
           </el-form-item>
@@ -51,11 +51,40 @@
         <router-link to="/register" style="color: darkred;font-family: 华文琥珀">还没有注册？</router-link>
       </el-col>
     </el-row>
+    <div class="video-box" id="can"></div>
   </div>
 </template>
 
 <script>
+import video_bg from 'vidbg.js'
 export default {
+  mounted() {
+    new video_bg(
+        ".video-box",
+        {
+          mp4: "video/video.mp4", // url或相对地址
+          webm: "video/video.webm", // url或相对地址
+          poster: "video/poster.jpg", // url或相对地址
+          overlay: true,
+          overlayColor: "#000",
+          overlayAlpha: 0.1,
+        },
+        {
+          autoplay: true,
+          controls: false,
+          loop: true,
+          muted: true,
+          playsInline: true,
+        }
+    )
+    let canvas=document.getElementById('can').style
+    canvas.position='absolute'
+    canvas.zIndex='-2'
+    canvas.top='0'
+    canvas.left='0'
+    canvas.width='100%'
+    canvas.height='100%'
+  },
   name: 'Login',
   data() {
     return {
@@ -89,22 +118,15 @@ export default {
 </script>
 
 <style scoped>
-.cover::before {
-  content: '';
-  width: 100%;
-  height: 100%;
-  background-image: url('../assets/img/bg.jpg');
-  background-size: cover;
-  position: absolute;
-  z-index: -2;
-  background-repeat: no-repeat;
-  filter: blur(4px);
-  top: 0;
-  left: 0;
+@import url("../assets/css/vidbg.css");/*这里打包压缩成功*/
+.video-box .vidbg-container {
+  background-image: url('../../public/video/poster.jpg');
 }
 .login-form-input >>> .el-input__inner {
   background-color: rgba(221, 218, 215, 0.4);
   border: none;
-  -webkit-text-stroke: 1px darkslategrey;
+}
+.login-form-input >>> .el-input__inner::placeholder{
+  color: lightgreen;
 }
 </style>

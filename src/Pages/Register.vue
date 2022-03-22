@@ -81,19 +81,18 @@
     </el-row>
     <div class="pio-container left" style="z-index: 100">
       <div class="pio-action"></div>
-      <canvas id="pio" width="250" height="250"></canvas>
+      <canvas id="pio" width="180" height="180"></canvas>
     </div>
   </div>
 </template>
 <script>
-import Vue from 'vue'
-import '/public/Pio/static/l2d'
-import Paul_Pio from '/public/Pio/static/pio'
-import '/public/Pio/static/pio.css'
+import '/public/Pio/static/l2d'//看板娘基础库
+import Paul_Pio from '/public/Pio/static/pio'//看板娘资源控制库
+import '/public/Pio/static/pio.css'//看板娘资源控制库css样式表
 export default {
   name: 'Register',
   mounted() {
-    Vue.use(new Paul_Pio({
+    new Paul_Pio({
       "mode": "static",
       "hidden": false,
       "content": {
@@ -102,7 +101,7 @@ export default {
       "night": "single.night()",
       "model": ["http://localhost/Pio/models/pio/model.json"],
       "tips": true
-    }))
+    })
   },
   data() {
     let validatePass2 = (rule, value, callback) => {
@@ -266,7 +265,7 @@ export default {
 color: darkred;
 }
 #bg::before{
-  z-index: -6;
+  z-index: -4;
   content: '';
   position: absolute;
   width: 100%;
